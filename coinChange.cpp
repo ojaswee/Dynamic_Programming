@@ -3,40 +3,59 @@
 
 using namespace std; 
 
+int avilableCoins[] = {1,5,10};
 const int numberOfCoins = 3;
 const int target = 11; 
-int p[numberOfCoins][target];
+int p[numberOfCoins][target+1];
+
+/*
+mat = [[0 for x in range(n+1)] for x in range(len(change)+1)]
+
+for c in range(1,(len(change)+1)):
+for m in range(1, n + 1):
+if change[c-1] ==m :
+mat[c][m] = 1
+elif m>change[c-1] and change[c-1]==1:
+mat[c][m] = 1 + mat[c][m - change[c - 1]]
+
+elif m>change[c-1] and change[c-1]!=1:
+mat[c][m] = min(mat[c-1][m],1+ mat[c][m-change[c-1]])
+
+elif m<change[c-1]:
+mat[c][m] = mat[c-1][m]
+
+return mat
+*/
 
 //this is bottom up approach
-void coinChange( int avilableCoins[]) {
-	//int **p = { 0 };
-	//int **p = new int[numberOfCoins*change];
-	for (int remaining = 1; remaining <= numberOfCoins; remaining++) {
-		for (int coins = 1; coins <= target; coins++) {
-			if (target == avilableCoins[coins-1]) {
-				p[remaining][coins] = 1;
-				//cout << p[remaining][coins] << "\t";
+void coinChange() {
+	cout << "Coins\t";
+	for (int i = 0; i <= target; i++) {
+		cout << i << "\t";
+	}
+	cout << endl;
+	for (int change = 0; change < numberOfCoins; change++) {
+		cout <<change <<" "<< avilableCoins[change] << "\t";
+		for (int remaining = 0; remaining <= target; remaining++) {
+			if (remaining == avilableCoins[change]) {// all correct
+				p[change][remaining] = 1;
 			}
-			else if (coins > avilableCoins[remaining-1] && avilableCoins[remaining-1] == 1) {
-				p[remaining][coins] = 1+ p[remaining][coins-avilableCoins[remaining-1]];
-				//cout << p[remaining][coins] << "\t";
+			else if (remaining > avilableCoins[change] && avilableCoins[change] == 1) {
+				p[change][remaining] = 1+ p[change][remaining -avilableCoins[change]];// all correct
 			}
-			else if (coins > avilableCoins[remaining-1] && avilableCoins[remaining-1] != 1) {
-				p[remaining][coins] =min(p[remaining-1][coins],1+p[remaining][coins-1]); //error here 
-				//cout << p[remaining][coins] << "\t";
+			else if (remaining > avilableCoins[change] && avilableCoins[change] != 1) {
+				p[change][remaining] =min(p[change-1][remaining],1+p[change][remaining]); 
 			}
-			else if (coins<avilableCoins[remaining-1]) {
-				p[remaining][coins] = p[remaining - 1][coins];
-				//cout << p[remaining][coins] << "\t";
+			else if (remaining<avilableCoins[change]) {
+				p[change][remaining] = p[change][remaining];
 			}
-			cout << p[remaining][coins] << "\t";
+			cout << p[change][remaining] << "\t";
 		}
 		cout << "\n";
 	}
 }
 
 int main() {
-	int coins[] = { 1,5,10 };
-	coinChange(coins);
+	coinChange();
 	system("pause");
 }
