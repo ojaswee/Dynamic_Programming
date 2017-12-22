@@ -3,9 +3,9 @@
 
 using namespace std; 
 
-int avilableCoins[] = {1,5,10};
+int avilableCoins[] = {1,3,7};
 const int numberOfCoins = 3;
-const int target = 11; 
+const int target = 10; 
 int p[numberOfCoins][target+1];
 
 //this is bottom up approach
@@ -24,7 +24,7 @@ void coinChange() {
 				p[change][remaining] = 1+ p[change][remaining -avilableCoins[change]];
 			else if (remaining > avilableCoins[change] && avilableCoins[change] != 1)
 				p[change][remaining] =min(p[change-1][remaining],1+p[change][remaining - avilableCoins[change]]);
-			else if (remaining<avilableCoins[change]) 
+			else //(remaining<avilableCoins[change]) 
 				p[change][remaining] = p[change-1][remaining];
 			cout << p[change][remaining] << "\t";
 		}
