@@ -1,12 +1,16 @@
 # simple pattern match
 
-def simpleMatch(text, pattern):
-    lenText = len(text) +1
-    lenPattern = len (pattern) + 1
-    mat = [[0 for x in range(lenText)] for y in range(lenPattern)]
-    for t in range(1,lenText):
-        for p in range (1,lenPattern):
+def simplematch(word,pattern):
+    for w in range(len(word)):
+        p =0
+        word2=word[w:]
+        while pattern[p] == word2[p]:
+            p += 1
+            if p==len(pattern):
+                print "occurs at ", w
+                break
+
+simplematch("abcdefacdeabc", "abc")
 
 
-mat = (simpleMatch("HelloWorld", "World"))
-
+len('abc')
