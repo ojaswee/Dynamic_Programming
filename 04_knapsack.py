@@ -18,7 +18,6 @@ def knapsack(bag_size,wt, value ):
                 v = v+ mat[w-1][rem]
                 mat[w][bag]= max(v, mat [w-1][bag])
 
-    # mat [[0 for x in range (wt+1)]for w in range (bagsize+1)]
     return (mat)
 
 bag_size = 7
